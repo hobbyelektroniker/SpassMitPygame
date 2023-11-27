@@ -14,13 +14,12 @@ Rechts oben kann unter **Code** mit **Download ZIP** das ganze Repository als ZI
 
 
 ## Herunterladen eines Projekts
-Jedes Projekt ist auch als ZIP-Datei vorhanden. Du kannst es öffnen und findest dann dort einen Download - Button. Alternativ kannst du auch mit der rechten Maustaste und 'speichern unter' die ZIP-Datei auf deinem Computer speichern.
+Jedes Projekt ist auch als ZIP-Datei vorhanden. Du kannst es öffnen und findest dann dort einen Download - Button. 
 
 
 ## Herunterladen / anzeigen der Dokumente
-Die PDF - Dateien enthalten Beschreibungen und Zusatzerklärungen zu den Videos. Du kannst sie öffnen und findest dann dort einen Download Button. Gleichzeitig kannst du ein Dokument auch direkt im Browser lesen. Alternativ kannst du auch mit der rechten Maustaste und 'speichern unter' die PDF-Datei auf deinem Computer speichern.
+Die PDF - Dateien enthalten Beschreibungen und Zusatzerklärungen zu den Videos. Du kannst sie öffnen und findest dann dort einen Download Button. Gleichzeitig kannst du ein Dokument auch direkt im Browser lesen. 
 
 
 ## Andere Dateien herunterladen oder anzeigen
-Normalerweise kannst du mit der rechten Maustaste und 'speichern unter' die Datei auf deinem Computer speichern.
-Du kannst sie aber auch durch Anklicken öffnen. Textdateien und Bilder werden dann direkt angezeigt. Oft steht dann auch ein Download - Button zur Verfügung.
+Du kannst die Datei durch Anklicken öffnen. Textdateien und Bilder werden direkt angezeigt. Mit dem Download Button rechts oben lässt sich die Datei herunterladen.
