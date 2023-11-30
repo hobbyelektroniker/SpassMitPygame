@@ -30,7 +30,7 @@ class MyGame(pgt.Game):
             if winkel % 30 == 0:
                 # Stundenstrich
                 pg.draw.line(self.background, color='white', start_pos=aussen, end_pos=stunde, width=3)
-                pgt.draw_text(self.background, winkel // 30, font=self.font, pos=ziffer, anchor='c')
+                pgt.draw_text(self.background, text=winkel // 30, font=self.font, pos=ziffer, anchor='c')
             else:
                 # Minutenstrich
                 pg.draw.line(self.background, color='white', start_pos=aussen, end_pos=innen, width=3)
@@ -44,7 +44,7 @@ class MyGame(pgt.Game):
 
     def sekundenzeiger(self):
         winkel = 360 / 60 * self.zeit.second
-        # winkel += 360 / 60 / 1000000 * self.zeit.microsecond
+        # winkel += 360 / 60 / 1_000_000 * self.zeit.microsecond
         r = self.radius - 90
         aussen = pgt.Position.from_deg(winkel-90, r, self.zentrum)
         pg.draw.line(self.screen, color='white', start_pos=aussen, end_pos=self.zentrum, width=2)
@@ -64,8 +64,8 @@ class MyGame(pgt.Game):
     def update(self, dt):
         super().update(dt)
         self.zeit = datetime.now()
-        self.zeit_label.set_value(self.zeit.strftime("%H:%M:%S"))
         self.datum_label.set_value(self.zeit.strftime("%d.%m.%Y"))
+        self.zeit_label.set_value(self.zeit.strftime("%H:%M:%S"))
 
     def draw(self):
         super().draw()
