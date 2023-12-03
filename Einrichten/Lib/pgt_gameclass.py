@@ -18,6 +18,9 @@ class Function:
         self.done = False
         self.__next_run = pg.time.get_ticks() + seconds * 1000
 
+    def stop(self):
+        self.done = True
+
     def execute(self):
         if self.done:
             return
@@ -32,7 +35,7 @@ class Function:
 
 class Game:
     """Basisklasse für jedes Game"""
-    def __init__(self, title=" ", *, width=300, height=200, fps=60, fontsize=30, bgcolor='black'):
+    def __init__(self, title=" ", *, width=800, height=600, fps=60, fontsize=30, bgcolor='black'):
         # Konfiguration vorbereiten
         pg.init()
         self._fps = fps
@@ -44,7 +47,7 @@ class Game:
 
         self.clock = pg.time.Clock()
         self.functions = []
-        self.dt = 0
+        self.dt = 1000 / fps   # in ms
         self.done = False
 
         # Standardfont erstellen
@@ -56,13 +59,14 @@ class Game:
 
         # Spritegruppen vorbereiten
         self.visible_sprites = sprite.Group()
+        self.update_sprites = sprite.Group()
         self.player_sprites = sprite.Group()
-        self.sprite_groups = [self.visible_sprites]
+        # self.all_groups = [self.player_sprites]
 
         # Boxxcolors
         self.rect_color = 'blue'
         self.box_color = 'red'
-        self.show_boxes = []
+        self.hit_boxes = []
 
         # Events weitergeben
         self.app_event = TraceVar()
@@ -70,8 +74,8 @@ class Game:
     def __del__(self):
         pg.quit()
 
-    def set_show_boxes(self, *args):
-        self.show_boxes = [arg for arg in args]
+    def show_boxes(self, *groups):
+        self.hit_boxes = [group for group in groups]
 
     def create_background(self):
         background = pg.Surface(self.screen.get_size())
@@ -79,11 +83,11 @@ class Game:
         return background
 
     def create_group(self):
-        group = sprite.Group()
-        self.sprite_groups.append(group)
+        return sprite.Group()
+        # self.all_groups.append(group)
 
-    def remove_group(self, group):
-        self.sprite_groups.remove(group)
+    # def remove_group(self, group):
+    #     self.sprite_groups.remove(group)
 
     def create_text(self, text, *, font=None, antialias=False, color='white', background=None):
         if not font: font = self.font
@@ -122,8 +126,7 @@ class Game:
         pass
 
     def update(self, dt):
-        for group in self.sprite_groups:
-            group.update(self.dt)
+        self.update_sprites.update(self.dt)
 
     def draw_background(self):
         """Hintergrund zeichnen"""
@@ -131,9 +134,8 @@ class Game:
 
     def draw(self):
         """Elemente in Bildschirm (self.screen) zeichnen"""
-        for group in self.sprite_groups:
-            group.draw(self.screen)
-        for group in self.show_boxes:
+        self.visible_sprites.draw(self.screen)
+        for group in self.hit_boxes:
             for sprite in group:
                 pg.draw.rect(self.screen, color=self.box_color, rect=sprite.hitbox(), width=1)
                 pg.draw.rect(self.screen, color=self.rect_color, rect=sprite.rect, width=1)

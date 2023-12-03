@@ -19,8 +19,6 @@ class SpriteObject(pg.sprite.Sprite):
         self.tcolor = tcolor
         self.size = pgt.Size(size)
         self._anchor = anchor
-        self.active = active
-        self._visible = visible
         self.done = False
         self.handleevents = False
         self.vars = []
@@ -36,12 +34,14 @@ class SpriteObject(pg.sprite.Sprite):
 
         self.rect = self.image.get_rect()
         pgt.set_rect_pos(self.rect, pos, anchor=anchor)
+        if active:
+            self.add(game.update_sprites)
         if visible:
             self.add(game.visible_sprites)
         if group is not None:
             self.add(group)
 
-    def set_hit_borders(self, left=None, right=None, top=None, bottom=None):
+    def shrink_box(self, left=None, right=None, top=None, bottom=None):
         if left is not None: self.hit_left = left
         if right is not None: self.hit_right = right
         if top is not None: self.hit_top = top
@@ -149,6 +149,16 @@ class SpriteObject(pg.sprite.Sprite):
         elif not value and self.visible:
             self.remove(self.game.visible_sprites)
 
+    @property
+    def active(self):
+        return self in self.game.update_sprites
+
+    @active.setter
+    def active(self, value):
+        if value and not self.active:
+            self.add(self.game.update_sprites)
+        elif not value and self.visible:
+            self.remove(self.game.update_sprites)
 
 class GameObject(SpriteObject):
     def __init__(self, game, *, pos=(0, 0), size=(50, 50), anchor='tl', active=True, visible=True,
@@ -236,9 +246,9 @@ class AnimatedGameObject(GameObject):
         else:
             self.animating = False
 
-    def load_animation(self, filename, fps=10):
+    def load_animation(self, filename, fps=10, **kwargs):
         self.fps = fps
-        self.image_list = pgt.Media.load_images(filename)
+        self.image_list = pgt.Media.load_images(filename, **kwargs)
         self.image = self.image_list[0]
 
     def update(self, dt):

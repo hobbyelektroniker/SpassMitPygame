@@ -31,6 +31,7 @@ class MyGame(pgt.Game):
             gegner.speed = 300
             gegner.keyboard_move(up=pg.K_a, down=pg.K_y)
 
+
     def handle_event(self, event):
         super().handle_event(event)
 
@@ -43,6 +44,6 @@ class MyGame(pgt.Game):
     def draw(self):
         super().draw()
 
+
 if __name__ == '__main__':
     MyGame().run()
-

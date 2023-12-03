@@ -89,8 +89,11 @@ class Media:
         return image
 
     @classmethod
-    def load_images(cls, filename, size=None, width=None, height=None, colorkey=None):
-        fullname = os.path.join(cls.media_dir, filename)
+    def load_images(cls, filename, size=None, width=None, height=None, colorkey=None, createfullname=True):
+        if createfullname:
+            fullname = os.path.join(cls.media_dir, filename)
+        else:
+            fullname = filename
         files = [f for f in pathlib.Path().glob(fullname)]
         files.sort()
         images = []
